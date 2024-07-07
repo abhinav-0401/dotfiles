@@ -160,6 +160,8 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.termguicolors = true
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 vim.keymap.set({ 'i', 'n' }, '<C-s>', vim.cmd.w, { desc = 'Save file' })
@@ -792,7 +794,7 @@ require('lazy').setup({
         dark = 'mocha',
       },
       transparent_background = false, -- disables setting the background color.
-      show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+      show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
       term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
       dim_inactive = {
         enabled = false, -- dims the background color of inactive window
@@ -837,12 +839,14 @@ require('lazy').setup({
   {
     'ellisonleao/gruvbox.nvim',
     opts = {
+      term_colors = true,
+      terminal_colors = true,
       italic = {
         strings = false,
         comments = false,
       },
-      transparent_mode = true,
-      contrast = 'dark',
+      transparent_mode = false,
+      contrast = '',
     },
     priority = 1000,
   },
@@ -855,38 +859,47 @@ require('lazy').setup({
     end,
   },
   {
-    'rebelot/kanagawa.nvim',
-    opts = {
-      compile = false, -- enable compiling the colorscheme
-      undercurl = true, -- enable undercurls
-      commentStyle = { italic = false },
-      no_italic = true,
-      keywordStyle = { italic = false },
-      statementStyle = { bold = true },
-      typeStyle = {},
-      transparent = false, -- do not set background color
-      dimInactive = false, -- dim inactive window `:h hl-NormalNC`
-      terminalColors = true, -- define vim.g.terminal_color_{0,17}
-      colors = { -- add/modify theme and palette colors
-        palette = {},
-        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-      },
-      overrides = function(colors) -- add/modify highlights
-        return {}
-      end,
-      theme = 'wave', -- Load "wave" theme when 'background' option is not set
-      background = { -- map the value of 'background' option to a theme
-        dark = 'wave', -- try "dragon" !
-        light = 'lotus',
-      },
-    },
+    'Mofiqul/vscode.nvim',
+    opts = {},
   },
+  -- {
+  --   'rebelot/kanagawa.nvim',
+  --   opts = {
+  --     compile = false, -- enable compiling the colorscheme
+  --     undercurl = true, -- enable undercurls
+  --     commentStyle = { italic = false },
+  --     no_italic = true,
+  --     keywordStyle = { italic = false },
+  --     statementStyle = { bold = true },
+  --     typeStyle = {},
+  --     transparent = false, -- do not set background color
+  --     dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+  --     terminalColors = true, -- define vim.g.terminal_color_{0,17}
+  --     colors = { -- add/modify theme and palette colors
+  --       palette = {},
+  --       theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+  --     },
+  --     overrides = function(colors) -- add/modify highlights
+  --       return {}
+  --     end,
+  --     theme = 'wave', -- Load "wave" theme when 'background' option is not set
+  --     background = { -- map the value of 'background' option to a theme
+  --       dark = 'wave', -- try "dragon" !
+  --       light = 'lotus',
+  --     },
+  --   },
+  -- },
   { 'dasupradyumna/midnight.nvim', lazy = false, priority = 1000 },
+  -- { 'aktersnurra/no-clown-fiesta.nvim' },
+  -- {
+  --   'zenbones-theme/zenbones.nvim',
+  --   dependencies = {
+  --     'rktjmp/lush.nvim',
+  --   },
+  -- },
   {
     'Yazeed1s/oh-lucy.nvim',
-    opts = {
-      oh_lucy_italic_comments = false,
-    },
+    opts = {},
     -- {
     --   'blazkowolf/gruber-darker.nvim',
     --   opts = {
@@ -907,6 +920,14 @@ require('lazy').setup({
         }
         -- vim.cmd.colorscheme 'gruber-darker'
       end,
+      opts = {
+        italic = {
+          comments = false,
+          strings = false,
+          operators = false,
+          folds = false,
+        },
+      },
     },
   },
   { -- you can easily change to a different colorscheme.
@@ -1103,7 +1124,14 @@ require('nordic').setup {
   },
 }
 
-vim.cmd.colorscheme 'nordic'
+vim.g.oh_lucy_italic_comments = false
+vim.g.oh_lucy_italic_functions = false
+
+vim.g.oh_lucy_evening_italic_comments = false
+vim.g.oh_lucy_evening_italic_functions = false
+vim.g.oh_lucy_evening_transparent_background = false
+
+vim.cmd.colorscheme 'gruvbox'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
